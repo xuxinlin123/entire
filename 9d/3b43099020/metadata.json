@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "9d3b43099020",
+  "strategy": "manual-commit",
+  "branch": "feature/20260602",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "docs/superpowers/plans/2026-06-02-transcript-multiformat.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/9d/3b43099020/0/metadata.json",
+      "transcript": "/9d/3b43099020/0/full.jsonl",
+      "content_hash": "/9d/3b43099020/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 111702,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 117998,
+    "output_tokens": 1449,
+    "api_call_count": 2
+  }
+}
