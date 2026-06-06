@@ -10,6 +10,7 @@ import com.mzfuture.entire.checkpoint.mapper.SessionMapper;
 import com.mzfuture.entire.checkpoint.repository.CheckpointRepository;
 import com.mzfuture.entire.checkpoint.repository.SessionRepository;
 import com.mzfuture.entire.checkpoint.service.SessionService;
+import com.mzfuture.entire.checkpoint.transcript.TranscriptGitDiffer;
 import com.mzfuture.entire.checkpoint.transcript.TranscriptNormalizer;
 import com.mzfuture.entire.common.exception.Errors;
 import lombok.extern.slf4j.Slf4j;
@@ -28,19 +29,22 @@ public class SessionServiceImpl implements SessionService {
     private final CheckpointGitReader gitReader;
     private final CheckpointSyncProperties syncProperties;
     private final TranscriptNormalizer transcriptNormalizer;
+    private final TranscriptGitDiffer transcriptGitDiffer;
 
     public SessionServiceImpl(SessionRepository sessionRepository,
                                SessionMapper sessionMapper,
                                CheckpointRepository checkpointRepository,
                                CheckpointGitReader gitReader,
                                CheckpointSyncProperties syncProperties,
-                               TranscriptNormalizer transcriptNormalizer) {
+                               TranscriptNormalizer transcriptNormalizer,
+                               TranscriptGitDiffer transcriptGitDiffer) {
         this.sessionRepository = sessionRepository;
         this.sessionMapper = sessionMapper;
         this.checkpointRepository = checkpointRepository;
         this.gitReader = gitReader;
         this.syncProperties = syncProperties;
         this.transcriptNormalizer = transcriptNormalizer;
+        this.transcriptGitDiffer = transcriptGitDiffer;
     }
 
     @Override
@@ -91,6 +95,17 @@ public class SessionServiceImpl implements SessionService {
         if (raw.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(transcriptNormalizer.normalize(raw.get()));
+        NormalizedTranscriptDTO dto = transcriptNormalizer.normalize(raw.get());
+
+        // Enrich with real file content from git so the UI can show unified diffs even
+        // when the agent's transcript only stored edit fragments (Claude Code, Cursor, ...).
+        Session session = sessionRepository.findById(sessionId).orElse(null);
+        if (session != null) {
+            Checkpoint checkpoint = checkpointRepository.findById(session.getCheckpointId()).orElse(null);
+            if (checkpoint != null && checkpoint.getCommitSha() != null && checkpoint.getRepoId() != null) {
+                transcriptGitDiffer.enrich(dto, checkpoint.getRepoId(), checkpoint.getCommitSha());
+            }
+        }
+        return Optional.of(dto);
     }
 }

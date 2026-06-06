@@ -91,6 +91,26 @@ public class CheckpointGitReader {
         }
     }
 
+    /// Resolve the first parent commit SHA. Empty for root commits.
+    /// @return parent commit SHA, or empty for root commit / resolution error
+    public Optional<String> getParentCommitSha(Long repoId, String commitSha) {
+        File repoDir = new File(gitOperationService.getLocalRepositoryPath(repoId));
+        if (!repoDir.exists() || !new File(repoDir, ".git").exists()) {
+            return Optional.empty();
+        }
+        try (Repository repository = openRepository(repoDir);
+             RevWalk walk = new RevWalk(repository)) {
+            ObjectId revId = repository.resolve(commitSha);
+            if (revId == null) return Optional.empty();
+            RevCommit commit = walk.parseCommit(revId);
+            if (commit.getParentCount() == 0) return Optional.empty();
+            return Optional.of(commit.getParent(0).getName());
+        } catch (IOException e) {
+            log.warn("Resolve parent failed: repoId={}, commit={}, error={}", repoId, commitSha, e.getMessage());
+            return Optional.empty();
+        }
+    }
+
     /// Walk commits from the given branch ref (refs/heads/branchName) toward history; stop at stopAtCommitSha (exclusive) or root.
     /// @param repoId repository id
     /// @param branchName short branch name, e.g. "main", "entire/checkpoints/v1"
