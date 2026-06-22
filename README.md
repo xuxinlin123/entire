@@ -62,7 +62,7 @@ Entire Dashboard works with repositories hosted on:
   <img src="docs/imgs/structure.png" alt="System Architecture" width="600" />
 </p>
 
-Overall workflow: capturing conversations and events from the CLI, processing and storing them in database through the core service, then visual analysis through the Dashboard.
+Overall workflow: capture conversations and events in the CLI, process and store them in the database through the backend service, then visualize them in the Dashboard.
 
 ## 🔧 Installation & Run
 
