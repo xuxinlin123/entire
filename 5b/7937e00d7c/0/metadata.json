@@ -1,0 +1,76 @@
+{
+  "cli_version": "0.7.7",
+  "checkpoint_id": "5b7937e00d7c",
+  "session_id": "019ef046-5cd3-7370-ba4f-a353c7db2d61",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-22T17:18:01.955085Z",
+  "branch": "main",
+  "checkpoints_count": 2,
+  "save_step_count": 2,
+  "files_touched": [
+    "README.zh-CN.md"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "cbc2d83cf7dd",
+  "token_usage": {
+    "input_tokens": 215124,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1939968,
+    "output_tokens": 19604,
+    "api_call_count": 34
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-22T17:18:01.9155896Z",
+    "agent_lines": 1,
+    "agent_removed": 1,
+    "human_added": 0,
+    "human_modified": 112,
+    "human_removed": 0,
+    "total_committed": 113,
+    "total_lines_changed": 114,
+    "agent_percentage": 1.7543859649122806,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 1847,
+      "user_lines_removed": 248,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "server/backend.err.log": 2,
+        "server/backend.out.log": 1597,
+        "server/gradlew": 248
+      },
+      "user_removed_per_file": {
+        "server/gradlew": 248
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 936,
+      "user_lines_removed": 516,
+      "agent_lines_added": 1712,
+      "agent_lines_removed": 113,
+      "user_added_per_file": {
+        "server/backend.out.log": 348,
+        "server/gradlew": 248,
+        "web/app/features/checkpoint/api/checkpoint.api.ts": 60,
+        "web/app/features/checkpoint/components/CheckpointSyncButton.vue": 49,
+        "web/app/pages/admin/checkpoints/index.vue": 58,
+        "web/app/pages/admin/overview.vue": 173
+      },
+      "user_removed_per_file": {
+        "server/gradlew": 248,
+        "web/app/features/checkpoint/api/checkpoint.api.ts": 52,
+        "web/app/pages/admin/checkpoints/index.vue": 52,
+        "web/app/pages/admin/overview.vue": 164
+      }
+    }
+  ]
+}
