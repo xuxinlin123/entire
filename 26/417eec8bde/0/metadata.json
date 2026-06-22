@@ -1,0 +1,41 @@
+{
+  "cli_version": "0.7.7",
+  "checkpoint_id": "26417eec8bde",
+  "session_id": "019ef05b-bfb1-76c3-bceb-2308409bccba",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-22T18:28:30.9331412Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "save_step_count": 1,
+  "files_touched": [
+    "server/backend.out.log",
+    "server/src/main/java/com/mzfuture/entire/checkpoint/transcript/format/CodexFormat.java",
+    "server/src/test/java/com/mzfuture/entire/checkpoint/transcript/TranscriptNormalizerTest.java",
+    "web/app/features/checkpoint/components/SessionFileDiffView.vue"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "e0d4b7510848",
+  "token_usage": {
+    "input_tokens": 260639,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 2750848,
+    "output_tokens": 24612,
+    "api_call_count": 39
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-22T18:28:30.8669672Z",
+    "agent_lines": 224,
+    "agent_removed": 43,
+    "human_added": 36,
+    "human_modified": 1910,
+    "human_removed": 0,
+    "total_committed": 2170,
+    "total_lines_changed": 2226,
+    "agent_percentage": 11.994609164420485,
+    "metric_version": 2
+  }
+}
