@@ -6,7 +6,7 @@
 
 <h2 align="center">每一次代码提交，都藏着一个故事。现在，让团队一起看见它。</h2>
 
-## Entire Dashboard
+## Entire Dashboard (capture check)
 
 **Entire Dashboard** 是一个基于 Web 的数据分析与可视化平台，用于展示由 [`entireio/cli`](https://github.com/entireio/cli) 生成的数据。
 
