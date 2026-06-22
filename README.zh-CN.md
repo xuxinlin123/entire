@@ -4,7 +4,7 @@
 
 [English](./README.md) | 中文版
 
-<h2 align="center">每一次代码提交，都藏着一个故事。现在，你可以看见它。</h2>
+<h2 align="center">每一次代码提交，都藏着一个故事。现在，让团队一起看见它。</h2>
 
 ## Entire Dashboard
 
