@@ -1,0 +1,9 @@
+请你给我讲一下这个项目大体在干什么，然后修改一下D:\project\course\entire-dashboard\README.md这个文件里的其中一行
+
+---
+
+你看，我修改了一下D:\project\course\entire-dashboard\README.md这个文件里的一行，但是修改了什么你并没有在文件里显示出来，我要求对所有文件进行的修改都要能在文件里显示出来类似于这样
+
+---
+
+帮我重启项目
