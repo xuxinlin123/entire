@@ -1,0 +1,1 @@
+请你给我讲一下这个项目大体在干什么，然后修改一下D:\project\course\entire-dashboard\README.md这个文件里的其中一行
