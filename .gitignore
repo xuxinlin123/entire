@@ -39,3 +39,6 @@ out/
 .env.test
 ## Gradle
 gradle.properties
+
+/data/
+/logs/
