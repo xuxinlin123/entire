@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.7.7",
+  "checkpoint_id": "f4beed513692",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "server/backend.out.log",
+    "server/src/main/java/com/mzfuture/entire/checkpoint/transcript/format/CodexFormat.java",
+    "server/src/test/java/com/mzfuture/entire/checkpoint/transcript/TranscriptNormalizerTest.java",
+    "web/app/features/checkpoint/components/SessionFileDiffView.vue"
+  ],
+  "sessions": [
+    {
+      "metadata": "/f4/beed513692/0/metadata.json",
+      "transcript": "/f4/beed513692/0/full.jsonl",
+      "content_hash": "/f4/beed513692/0/content_hash.txt",
+      "prompt": "/f4/beed513692/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 156272,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1691264,
+    "output_tokens": 19286,
+    "api_call_count": 28
+  }
+}
