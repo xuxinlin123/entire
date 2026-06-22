@@ -1,0 +1,27 @@
+{
+  "cli_version": "0.7.7",
+  "checkpoint_id": "70e1ee329eaa",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "web/app/features/checkpoint/api/checkpoint.api.ts",
+    "web/app/pages/admin/checkpoints/index.vue",
+    "web/app/pages/admin/overview.vue"
+  ],
+  "sessions": [
+    {
+      "metadata": "/70/e1ee329eaa/0/metadata.json",
+      "transcript": "/70/e1ee329eaa/0/full.jsonl",
+      "content_hash": "/70/e1ee329eaa/0/content_hash.txt",
+      "prompt": "/70/e1ee329eaa/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 216190,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 2052480,
+    "output_tokens": 20065,
+    "api_call_count": 35
+  }
+}

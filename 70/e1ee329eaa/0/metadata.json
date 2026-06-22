@@ -1,0 +1,54 @@
+{
+  "cli_version": "0.7.7",
+  "checkpoint_id": "70e1ee329eaa",
+  "session_id": "019ef046-5cd3-7370-ba4f-a353c7db2d61",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-22T17:20:53.1402555Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "save_step_count": 2,
+  "files_touched": [
+    "web/app/features/checkpoint/api/checkpoint.api.ts",
+    "web/app/pages/admin/checkpoints/index.vue",
+    "web/app/pages/admin/overview.vue"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "a1bf15e846b4",
+  "token_usage": {
+    "input_tokens": 216190,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 2052480,
+    "output_tokens": 20065,
+    "api_call_count": 35
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-22T17:20:53.0982347Z",
+    "agent_lines": 36,
+    "agent_removed": 13,
+    "human_added": 49,
+    "human_modified": 255,
+    "human_removed": 0,
+    "total_committed": 340,
+    "total_lines_changed": 353,
+    "agent_percentage": 13.881019830028329,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 1996,
+      "user_lines_removed": 0,
+      "agent_lines_added": 539,
+      "agent_lines_removed": 516,
+      "user_added_per_file": {
+        "server/backend.err.log": 2,
+        "server/backend.out.log": 1945,
+        "web/app/features/checkpoint/components/CheckpointSyncButton.vue": 49
+      }
+    }
+  ]
+}
