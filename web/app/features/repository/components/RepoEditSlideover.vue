@@ -20,8 +20,8 @@ const showAccessToken = ref(false)
 async function handleValidateToken() {
   if (!state.webUrl || !state.platform || !state.accessToken) {
     toast.add({
-      title: 'Validation failed',
-      description: 'Please fill in Web URL, Platform and Access Token first',
+      title: '校验失败',
+      description: '请先填写仓库地址、平台和访问令牌',
       color: 'warning',
     })
     return
@@ -34,18 +34,18 @@ async function handleValidateToken() {
       accessToken: state.accessToken,
     })
     if (result.valid) {
-      message.success('Token is valid')
+      message.success('访问令牌有效')
     } else {
       toast.add({
-        title: 'Token invalid',
-        description: result.message || 'Token validation failed',
+        title: '访问令牌无效',
+        description: result.message || '访问令牌校验失败',
         color: 'error',
       })
     }
   } catch (error: any) {
     toast.add({
-      title: 'Validation failed',
-      description: error.message || 'Failed to validate token',
+      title: '校验失败',
+      description: error.message || '访问令牌校验失败',
       color: 'error',
     })
   } finally {
@@ -85,11 +85,11 @@ async function onSubmit(event: FormSubmitEvent<RepoUpdateParams>) {
       accessToken: event.data.accessToken,
     }
     await repoApi.update(updateParams)
-    message.success('Repository updated successfully')
+    message.success('仓库更新成功')
     open.value = false
     emit('ok')
   } catch (error: any) {
-    message.error('Failed to update repository')
+    message.error('仓库更新失败')
   } finally {
     loading.value = false
   }
@@ -112,7 +112,7 @@ defineExpose({
     }"
   >
     <template #header>
-      <h2 class="text-base font-medium">Edit Repository</h2>
+      <h2 class="text-base font-medium">编辑仓库</h2>
       <UButton color="neutral" variant="ghost" icon="i-lucide-x" size="md" square @click="open = false" />
     </template>
 
@@ -125,25 +125,25 @@ defineExpose({
         @submit="onSubmit"
         :validateOn="['input', 'change']"
       >
-        <UFormField label="Name" name="name" size="md" :ui="{ label: 'text-sm font-normal mb-1' }">
-          <UInput v-model="state.name" placeholder="Enter repository name" size="md" class="w-full" />
+        <UFormField label="名称" name="name" size="md" :ui="{ label: 'text-sm font-normal mb-1' }">
+          <UInput v-model="state.name" placeholder="请输入仓库名称" size="md" class="w-full" />
         </UFormField>
 
-        <UFormField label="Web URL" name="webUrl" :ui="{ label: 'text-sm font-normal mb-1' }">
+        <UFormField label="仓库地址" name="webUrl" :ui="{ label: 'text-sm font-normal mb-1' }">
           <UInput v-model="state.webUrl" placeholder="https://github.com/user/repo" class="w-full" />
         </UFormField>
 
-        <UFormField label="Platform" name="platform" :ui="{ label: 'text-sm font-normal mb-1' }">
-          <USelect v-model="state.platform" :items="PLATFORM_OPTIONS" placeholder="Select platform" />
+        <UFormField label="平台" name="platform" :ui="{ label: 'text-sm font-normal mb-1' }">
+          <USelect v-model="state.platform" :items="PLATFORM_OPTIONS" placeholder="请选择平台" />
         </UFormField>
 
-        <UFormField label="Access Token" name="accessToken" :ui="{ label: 'text-sm font-normal mb-1' }">
+        <UFormField label="访问令牌" name="accessToken" :ui="{ label: 'text-sm font-normal mb-1' }">
           <div class="flex gap-2">
             <div class="relative flex-1">
               <UInput
                 v-model="state.accessToken"
                 :type="showAccessToken ? 'text' : 'password'"
-                placeholder="Enter access token (optional)"
+                placeholder="请输入访问令牌（可选）"
                 size="md"
                 class="w-full"
               />
@@ -157,7 +157,7 @@ defineExpose({
               />
             </div>
             <UButton
-              label="Validate"
+              label="校验"
               color="neutral"
               variant="outline"
               size="md"
@@ -170,9 +170,9 @@ defineExpose({
     </template>
 
     <template #footer>
-      <UButton label="Cancel" color="neutral" variant="subtle" @click="open = false" />
+      <UButton label="取消" color="neutral" variant="subtle" @click="open = false" />
       <UButton
-        label="Confirm"
+        label="确认"
         color="success"
         variant="solid"
         :loading="loading"

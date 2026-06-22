@@ -16,15 +16,15 @@ const showPassword = ref(false)
 const schema = v.object({
   username: v.pipe(
       v.string(),
-      v.nonEmpty('Cannot be empty'),
-      v.minLength(2, 'Must be at least 2 characters'),
-      v.maxLength(32, 'Must be less than 32 characters'),
+      v.nonEmpty('不能为空'),
+      v.minLength(2, '至少需要 2 个字符'),
+      v.maxLength(32, '不能超过 32 个字符'),
   ),
   password: v.pipe(
       v.string(),
-      v.nonEmpty('Cannot be empty'),
-      v.minLength(2, 'Must be at least 2 characters'),
-      v.maxLength(32, 'Must be less than 32 characters'),
+      v.nonEmpty('不能为空'),
+      v.minLength(2, '至少需要 2 个字符'),
+      v.maxLength(32, '不能超过 32 个字符'),
   ),
 })
 
@@ -80,7 +80,7 @@ const handleLogin = async () => {
                           error?.data?.message || 
                           error?.response?.data?.message
     
-    errorMessage.value = backendMessage || error.message || 'Login failed, please check username and password'
+    errorMessage.value = backendMessage || error.message || '登录失败，请检查用户名和密码'
   } finally {
     loading.value = false
   }
@@ -92,16 +92,16 @@ const handleLogin = async () => {
     <div class="flex flex-col items-center">
       <div class="flex items-center gap-3">
         <UIcon name="i-lucide-layout-dashboard" class="w-10 h-10 sm:w-12 sm:h-12 text-success"/>
-        <span class="text-2xl sm:text-3xl font-semibold text-highlighted ">Entire Dashboard</span>
+        <span class="text-2xl sm:text-3xl font-semibold text-highlighted ">Entire 仪表盘</span>
       </div>
     </div>
 
     <UForm :schema="schema" :state="state" class="space-y-4" data-id="login-form"@submit="handleLogin">
-      <UFormField label="Username" name="username">
+      <UFormField label="用户名" name="username">
         <UInput v-model="state.username" class="w-full" />
       </UFormField>
 
-      <UFormField label="Password" name="password">
+      <UFormField label="密码" name="password">
         <UInput v-model="state.password" :type="showPassword ? 'text' : 'password'" class="w-full">
           <template #trailing>
             <UButton
@@ -119,7 +119,7 @@ const handleLogin = async () => {
       <div class="flex items-center">
         <UCheckbox
             v-model="state.rememberMe"
-            label="Remember me"
+            label="记住我"
             :disabled="loading"
         />
       </div>
@@ -134,7 +134,7 @@ const handleLogin = async () => {
           @close="errorMessage = ''"
       />
 
-      <UButton type="submit" block>Login</UButton>
+      <UButton type="submit" block>登录</UButton>
     </UForm>
   </div>
 

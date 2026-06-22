@@ -9,7 +9,7 @@ definePageMeta({
 <template>
   <UDashboardPanel id="dashboard">
     <template #header>
-      <UDashboardNavbar title="Repositories">
+      <UDashboardNavbar title="仓库">
         <template #leading>
           <UDashboardSidebarCollapse />
         </template>

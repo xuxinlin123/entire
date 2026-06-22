@@ -30,7 +30,7 @@ const {
 <template>
   <UDashboardPanel id="dashboard">
     <template #header>
-      <UDashboardNavbar title="Checkpoints">
+      <UDashboardNavbar title="检查点">
         <template #leading>
           <UDashboardSidebarCollapse />
         </template>

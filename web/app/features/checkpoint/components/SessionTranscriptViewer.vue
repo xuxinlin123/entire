@@ -55,7 +55,7 @@ function formatTime(ms?: number): string {
               variant="soft"
               :icon="'i-lucide-wrench'"
             >
-              {{ msg.toolsCount }} tool{{ (msg.toolsCount ?? 0) > 1 ? 's' : '' }} used
+              使用了 {{ msg.toolsCount }} 个工具
             </UButton>
             <div class="flex flex-wrap gap-1">
               <UBadge

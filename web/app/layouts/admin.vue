@@ -7,7 +7,7 @@ const open = ref(true) // Expanded by default
 // Menu items configuration
 const items: NavigationMenuItem[] = [
   {
-    label: 'Overview',
+    label: '概览',
     icon: 'i-lucide-layout-dashboard',
     to: '/admin/overview',
     onSelect: () => {
@@ -18,7 +18,7 @@ const items: NavigationMenuItem[] = [
     },
   },
   {
-    label: 'Repositories',
+    label: '仓库',
     icon: 'i-lucide-folder-git',
     to: '/admin/repositories',
     exact: false, // Allow sub-paths to also match this menu item
@@ -29,7 +29,7 @@ const items: NavigationMenuItem[] = [
     },
   },
   {
-    label: 'Checkpoints',
+    label: '检查点',
     icon: 'i-lucide-git-commit',
     to: '/admin/checkpoints',
     exact: false,
@@ -69,7 +69,7 @@ watch(() => route.path, () => {
                 v-show="!collapsed" 
                 class="text-lg font-medium text-highlighted  whitespace-nowrap"
               >
-                Entire Dashboard
+                Entire 仪表盘
               </span>
             </Transition>
           </div>

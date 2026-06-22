@@ -228,10 +228,10 @@ export function useCheckpointSearch() {
   }
 
   const pageSizeOptions = [
-    { label: '10 items/page', value: 10 },
-    { label: '20 items/page', value: 20 },
-    { label: '50 items/page', value: 50 },
-    { label: '100 items/page', value: 100 },
+    { label: '10 条/页', value: 10 },
+    { label: '20 条/页', value: 20 },
+    { label: '50 条/页', value: 50 },
+    { label: '100 条/页', value: 100 },
   ]
 
   return {

@@ -3,7 +3,7 @@
     <!-- Empty state -->
     <div v-if="isEmpty" class="text-center py-16 text-gray-500 dark:text-gray-400">
       <UIcon name="i-lucide-git-commit" class="w-12 h-12 mx-auto mb-4 opacity-50" />
-      <p>No Checkpoints</p>
+      <p>暂无检查点</p>
     </div>
 
     <!-- Table + Pagination -->
@@ -16,7 +16,7 @@
       />
 
       <div class="flex justify-between items-center pt-4 border-t border-gray-200 dark:border-gray-700">
-        <div class="text-sm text-default">Total {{ total }} items</div>
+        <div class="text-sm text-default">共 {{ total }} 条</div>
         <div class="flex items-center gap-3">
           <UPagination
             v-model:page="currentPage"
@@ -97,7 +97,7 @@ const currentSize = computed({
 const columns = [
   {
     accessorKey: 'commitMessage',
-    header: 'Commit Message',
+    header: '提交信息',
     cell: ({ row }: { row: Row<CheckpointDTO> }) => (
       <button
         type="button"
@@ -111,35 +111,35 @@ const columns = [
   },
   {
     accessorKey: 'commitAuthorName',
-    header: 'Author',
+    header: '作者',
     cell: ({ row }: { row: Row<CheckpointDTO> }) => (
       <div class="text-default">{row.original.commitAuthorName || '-'}</div>
     ),
   },
   {
     accessorKey: 'commitTime',
-    header: 'Commit Time',
+    header: '提交时间',
     cell: ({ row }: { row: Row<CheckpointDTO> }) => (
       <div class="whitespace-nowrap text-default">{formatCommitTime(row.original.commitTime)}</div>
     ),
   },
   {
     accessorKey: 'repoName',
-    header: 'Repository',
+    header: '仓库',
     cell: ({ row }: { row: Row<CheckpointDTO> }) => (
       <div class="text-default">{row.original.repoName || '-'}</div>
     ),
   },
   {
     accessorKey: 'branch',
-    header: 'Branch',
+    header: '分支',
     cell: ({ row }: { row: Row<CheckpointDTO> }) => (
       <div class="text-default">{row.original.branch || '-'}</div>
     ),
   },
   {
     accessorKey: 'agent',
-    header: 'Agent',
+    header: '智能体',
     cell: ({ row }: { row: Row<CheckpointDTO> }) =>
       row.original.agent ? (
         <UBadge
@@ -156,21 +156,21 @@ const columns = [
   },
   {
     accessorKey: 'filesTouched',
-    header: 'Files',
+    header: '文件',
     cell: ({ row }: { row: Row<CheckpointDTO> }) => (
       <div class="text-default">{row.original.filesTouched ?? '-'}</div>
     ),
   },
   {
     accessorKey: 'tokenUsage',
-    header: 'Tokens',
+    header: '令牌',
     cell: ({ row }: { row: Row<CheckpointDTO> }) => (
       <div class="text-default">{formatTokenCount(row.original.tokenUsage)}</div>
     ),
   },
   {
     accessorKey: 'additions',
-    header: 'Additions / Deletions',
+    header: '新增 / 删除',
     cell: ({ row }: { row: Row<CheckpointDTO> }) => (
       <div class="text-default">
         <span class="text-green-600 dark:text-green-500">+{row.original.additions ?? 0}</span>
@@ -193,14 +193,14 @@ const columns = [
 
 function getRowMenuItems(row: Row<CheckpointDTO>): DropdownMenuItem[] {
   return [
-    { type: 'label', label: 'Actions' },
+    { type: 'label', label: '操作' },
     {
-      label: 'View details',
+      label: '查看详情',
       icon: 'i-lucide-eye',
       onSelect: () => openCheckpointDetail(row.original),
     },
     {
-      label: 'View in git repository',
+      label: '在 Git 仓库中查看',
       icon: 'i-lucide-external-link',
       disabled: !row.original.commitUrl,
       onSelect: () => {

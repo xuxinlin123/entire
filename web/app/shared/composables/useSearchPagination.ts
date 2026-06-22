@@ -177,7 +177,7 @@ export function useSearchPagination<T extends Record<string, any>>(
   // Items per page options
   const pageSizeItems = computed<SelectItem[]>(() => {
     return customPageSizeOptions.map((size) => ({
-      label: `${size} items/page`,
+      label: `${size} 条/页`,
       value: size,
     }))
   })

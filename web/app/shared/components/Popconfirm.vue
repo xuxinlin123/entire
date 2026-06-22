@@ -42,8 +42,8 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  okText: 'Confirm',
-  cancelText: 'Cancel',
+  okText: '确认',
+  cancelText: '取消',
   showOk: true,
   showCancel: true,
   color: 'primary',

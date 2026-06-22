@@ -43,7 +43,7 @@ const platformMap: Record<string, string> = {
 const columns = [
   {
     accessorKey: 'name',
-    header: 'Name',
+    header: '名称',
     cell: ({ row }: { row: Row<RepoRowVO> }) => {
       return (
         <div>
@@ -54,7 +54,7 @@ const columns = [
   },
   {
     accessorKey: 'webUrl',
-    header: 'URL',
+    header: '地址',
     cell: ({ row }: { row: Row<RepoRowVO> }) => {
       return (
         <a
@@ -70,14 +70,14 @@ const columns = [
   },
   {
     accessorKey: 'platform',
-    header: 'Platform',
+    header: '平台',
     cell: ({ row }: { row: Row<RepoRowVO> }) => {
       return <div class="text-default">{platformMap[row.original.platform] || row.original.platform}</div>
     },
   },
   {
     accessorKey: 'createdAt',
-    header: 'Created',
+    header: '创建时间',
     cell: ({ row }: { row: Row<RepoRowVO> }) => {
       const ts = row.original.createdAt
       if (!ts) return <div class="text-default">-</div>
@@ -89,8 +89,8 @@ const columns = [
     accessorKey: 'lastSuccessfulSyncAt',
     header: () => (
       <div class="inline-flex items-center gap-1">
-        <span>Last Synced</span>
-        <UTooltip text="The system automatically syncs every 15 minutes">
+        <span>最后同步</span>
+        <UTooltip text="系统每 15 分钟自动同步一次">
           <span class="inline-flex cursor-help">
             <UIcon name="i-lucide-info" class="w-4 h-4 text-muted" />
           </span>
@@ -100,7 +100,7 @@ const columns = [
     cell: ({ row }: { row: Row<RepoRowVO> }) => {
       const ts = row.original.lastSuccessfulSyncAt
       const isStale = !ts || Date.now() - ts > ONE_DAY_MS
-      const text = ts ? new Date(ts).toLocaleString() : 'Never synced'
+      const text = ts ? new Date(ts).toLocaleString() : '从未同步'
       return (
         <div class={isStale ? 'text-amber-600 dark:text-amber-500' : 'text-default'}>
           {text}
@@ -119,8 +119,8 @@ const columns = [
           <Popconfirm
             open={row.original.showDeleteConfirm}
             onUpdate:open={(val) => (row.original.showDeleteConfirm = val)}
-            title="Confirm delete"
-            description={`Are you sure you want to delete repository ${row.original.name}?`}
+            title="确认删除"
+            description={`确定要删除仓库 ${row.original.name} 吗？`}
             color="error"
             content={{ align: 'start', side: 'left' }}
             onOk={() => handleDelete(row.original)}
@@ -141,21 +141,21 @@ const syncError = ref<string | null>(null)
 const getRowMenuItems = (row: Row<RepoRowVO>): DropdownMenuItem[] => {
   return [
     {
-      label: 'Edit',
+      label: '编辑',
       icon: 'i-lucide-square-pen',
       onSelect: () => {
         editModalRef.value?.openEdit(row.original)
       },
     },
     {
-      label: 'Sync',
+      label: '同步',
       icon: 'i-lucide-refresh-cw',
       onSelect: () => {
         openSyncModal(row.original)
       },
     },
     {
-      label: 'Delete',
+      label: '删除',
       icon: 'i-lucide-trash-2',
       onSelect: () => {
         row.original.showDeleteConfirm = true
@@ -173,7 +173,7 @@ function openSyncModal(repo: RepoRowVO) {
     .syncRepo(repo.id)
     .then(() => {
       syncLoading.value = false
-      message.success(`Repository ${repo.name} synced successfully`)
+      message.success(`仓库 ${repo.name} 同步成功`)
       refresh()
       setTimeout(() => {
         syncModalOpen.value = false
@@ -181,7 +181,7 @@ function openSyncModal(repo: RepoRowVO) {
     })
     .catch((err: any) => {
       syncLoading.value = false
-      syncError.value = err?.data?.message || err?.message || 'Sync failed'
+      syncError.value = err?.data?.message || err?.message || '同步失败'
     })
 }
 
@@ -204,14 +204,14 @@ const handleDelete = async (repo: RepoRowVO) => {
     if (result.code === 'Ok') {
       await refresh()
       repo.showDeleteConfirm = false
-      message.success(`Repository ${repo.name} has been deleted`)
+      message.success(`仓库 ${repo.name} 已删除`)
     } else {
       repo.showDeleteConfirm = false
-      message.error(result.message || 'Delete failed')
+      message.error(result.message || '删除失败')
     }
   } catch {
     repo.showDeleteConfirm = false
-    message.error('Delete failed')
+    message.error('删除失败')
   }
 }
 
@@ -223,19 +223,19 @@ const handleEditOk = () => {
 <template>
   <div class="space-y-4 mt-2">
     <div class="flex gap-2 items-center">
-      <UInput v-model="conditions.keyword" placeholder="Name / URL" class="w-64" :ui="{ trailing: 'pr-0.5' }">
+      <UInput v-model="conditions.keyword" placeholder="名称 / 地址" class="w-64" :ui="{ trailing: 'pr-0.5' }">
         <template v-if="conditions.keyword.length" #trailing>
           <UButton
             color="neutral"
             variant="link"
             size="sm"
             icon="i-lucide-circle-x"
-            aria-label="Clear input"
+            aria-label="清空输入"
             @click="conditions.keyword = ''"
           />
         </template>
       </UInput>
-      <UButton label="Reset" color="neutral" variant="outline" size="md" @click="resetFilters" />
+      <UButton label="重置" color="neutral" variant="outline" size="md" @click="resetFilters" />
 
       <div class="ml-auto">
         <RepoCreateSlideover @ok="() => refresh()" />
@@ -244,7 +244,7 @@ const handleEditOk = () => {
     <UTable :data="tableData" :columns="columns" class="flex-1" />
 
     <div class="flex justify-between items-center mt-4">
-      <div class="text-sm text-default">Total {{ rows?.total || 0 }} items</div>
+      <div class="text-sm text-default">共 {{ rows?.total || 0 }} 条</div>
       <div class="flex items-center gap-3">
         <UPagination v-model:page="pager.page" :items-per-page="pager.size" :total="rows?.total || 0" :max="7" />
         <USelect v-model="pager.size" :items="pageSizeOptions" class="w-36" />
@@ -267,7 +267,7 @@ const handleEditOk = () => {
           <UIcon v-else name="i-lucide-circle-check" class="w-6 h-6 text-success" />
           <div>
             <div class="font-medium">
-              {{ syncLoading ? 'Syncing...' : syncError ? 'Sync Failed' : 'Sync Complete' }}
+              {{ syncLoading ? '同步中...' : syncError ? '同步失败' : '同步完成' }}
             </div>
             <div class="text-sm text-muted">
               {{ syncRepoName }}
@@ -279,7 +279,7 @@ const handleEditOk = () => {
         </p>
         <div v-if="!syncLoading" class="flex justify-end">
           <UButton color="neutral" variant="outline" @click="closeSyncModal">
-            Close
+            关闭
           </UButton>
         </div>
       </div>

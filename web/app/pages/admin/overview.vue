@@ -1,7 +1,7 @@
 <template>
   <UDashboardPanel id="dashboard">
     <template #header>
-      <UDashboardNavbar title="Overview">
+      <UDashboardNavbar title="概览">
         <template #leading>
           <UDashboardSidebarCollapse />
         </template>
@@ -30,7 +30,7 @@
               type="date"
               size="sm"
               :max="customEndDate || formatDate(new Date())"
-              placeholder="Start date"
+              placeholder="开始日期"
             />
             <span class="text-gray-500">-</span>
             <UInput
@@ -39,7 +39,7 @@
               size="sm"
               :min="customStartDate"
               :max="formatDate(new Date())"
-              placeholder="End date"
+              placeholder="结束日期"
             />
           </template>
         </div>
@@ -53,7 +53,7 @@
           v-else-if="error"
           color="error"
           variant="soft"
-          :title="error.message || 'Failed to load statistics'"
+          :title="error.message || '统计数据加载失败'"
           icon="i-lucide-alert-circle"
         />
 
@@ -61,30 +61,30 @@
         <div v-else-if="stats" class="space-y-6">
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <StatsCard
-              title="Recently Active Repos"
+              title="最近活跃仓库"
               :value="stats.activeProjectCount"
-              description="Repositories with checkpoints in the selected time range"
+              description="所选时间范围内产生检查点的仓库"
               icon="i-lucide-folder-git"
               icon-color="text-blue-600 dark:text-blue-500"
             />
             <StatsCard
-              title="Contributors"
+              title="贡献者"
               :value="stats.submitterCount"
-              description="Unique contributors in the selected time range"
+              description="所选时间范围内的唯一贡献者"
               icon="i-lucide-users"
               icon-color="text-green-600 dark:text-green-500"
             />
             <StatsCard
-              title="Checkpoints"
+              title="检查点"
               :value="stats.checkpointCount"
-              description="Total checkpoints in the selected time range"
+              description="所选时间范围内的检查点总数"
               icon="i-lucide-git-commit"
               icon-color="text-amber-600 dark:text-amber-500"
             />
             <StatsCard
-              title="Total Token Usage"
+              title="令牌总用量"
               :value="stats.totalTokenUsage"
-              description="Total tokens consumed in the selected time range"
+              description="所选时间范围内消耗的令牌总数"
               icon="i-lucide-coins"
               icon-color="text-purple-600 dark:text-purple-500"
               :formatter="formatTokenCount"
@@ -143,13 +143,13 @@
           class="text-center py-16 text-gray-500 dark:text-gray-400"
         >
           <UIcon name="i-lucide-calendar" class="w-12 h-12 mx-auto mb-4 opacity-50" />
-          <p>Please select start and end dates</p>
+          <p>请选择开始日期和结束日期</p>
         </div>
 
         <!-- Empty state (no data) -->
         <div v-else class="text-center py-16 text-gray-500 dark:text-gray-400">
           <UIcon name="i-lucide-bar-chart-3" class="w-12 h-12 mx-auto mb-4 opacity-50" />
-          <p>No data available</p>
+          <p>暂无数据</p>
         </div>
       </div>
     </template>

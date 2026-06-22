@@ -7,17 +7,17 @@ import * as v from 'valibot'
 /** Repository create/edit form validation schema */
 export const repoFormSchema = v.object({
   name: v.pipe(
-    v.string('Name must be a string'),
-    v.minLength(1, 'Name is required'),
-    v.maxLength(255, 'Name cannot exceed 255 characters'),
+    v.string('名称必须是字符串'),
+    v.minLength(1, '名称不能为空'),
+    v.maxLength(255, '名称不能超过 255 个字符'),
   ),
   webUrl: v.pipe(
-    v.string('Web URL must be a string'),
-    v.url('Please enter a valid URL'),
+    v.string('仓库地址必须是字符串'),
+    v.url('请输入有效的 URL'),
   ),
   platform: v.pipe(
-    v.string('Platform must be a string'),
-    v.minLength(1, 'Please select a platform'),
+    v.string('平台必须是字符串'),
+    v.minLength(1, '请选择平台'),
   ),
   accessToken: v.optional(v.string()),
 })

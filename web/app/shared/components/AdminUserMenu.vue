@@ -11,7 +11,7 @@ const auth = useAuth()
 
 // User info (using fixed value)
 const user = ref({
-  name: 'Admin',
+  name: '管理员',
   icon: 'i-lucide-circle-user-round',
 })
 
@@ -35,11 +35,11 @@ const items = computed<DropdownMenuItem[][]>(() => [
   ],
   [
     {
-      label: 'Appearance',
+      label: '外观',
       icon: 'i-lucide-sun-moon',
       children: [
         {
-          label: 'Light',
+          label: '浅色',
           icon: 'i-lucide-sun',
           type: 'checkbox',
           checked: colorMode.value === 'light',
@@ -49,7 +49,7 @@ const items = computed<DropdownMenuItem[][]>(() => [
           },
         },
         {
-          label: 'Dark',
+          label: '深色',
           icon: 'i-lucide-moon',
           type: 'checkbox',
           checked: colorMode.value === 'dark',
@@ -63,7 +63,7 @@ const items = computed<DropdownMenuItem[][]>(() => [
   ],
   [
     {
-      label: 'Logout',
+      label: '退出登录',
       icon: 'i-lucide-log-out',
       onSelect: handleLogout,
     },

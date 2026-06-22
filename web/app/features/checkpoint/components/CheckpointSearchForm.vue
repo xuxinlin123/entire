@@ -1,37 +1,37 @@
 <template>
   <div class="flex flex-wrap items-end gap-4">
-    <UFormField label="Start Date">
+    <UFormField label="开始日期">
       <UInput v-model="startDateStr" type="date" class="w-40" />
     </UFormField>
-    <UFormField label="End Date">
+    <UFormField label="结束日期">
       <UInput v-model="endDateStr" type="date" class="w-40" />
     </UFormField>
-    <UFormField label="Repository">
+    <UFormField label="仓库">
       <USelectMenu
         v-model="repoIds"
         multiple
         value-key="repoId"
         :items="repoItems"
-        placeholder="All Repositories"
+        placeholder="全部仓库"
         class="w-48"
         :loading="loadingRepos"
       />
     </UFormField>
-    <UFormField label="Author">
+    <UFormField label="作者">
       <USelectMenu
         v-model="commitAuthorNames"
         multiple
         value-key="value"
         :items="commitAuthorItems"
-        placeholder="All Authors"
+        placeholder="全部作者"
         class="w-48"
         :loading="loadingAuthors"
       />
     </UFormField>
-    <UFormField label="Commit Message">
+    <UFormField label="提交信息">
       <UInput
         v-model="commitMessage"
-        placeholder="Search"
+        placeholder="搜索"
         class="w-56"
         :ui="{ trailing: 'pr-0.5' }"
       >
@@ -41,13 +41,13 @@
             variant="link"
             size="sm"
             icon="i-lucide-circle-x"
-            aria-label="Clear"
+            aria-label="清空"
             @click="commitMessage = ''"
           />
         </template>
       </UInput>
     </UFormField>
-    <UButton label="Reset" color="neutral" variant="outline" @click="$emit('reset')" />
+    <UButton label="重置" color="neutral" variant="outline" @click="$emit('reset')" />
   </div>
 </template>
 

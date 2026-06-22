@@ -20,8 +20,8 @@ const showAccessToken = ref(false)
 async function handleValidateToken() {
   if (!state.webUrl || !state.platform || !state.accessToken) {
     toast.add({
-      title: 'Validation failed',
-      description: 'Please fill in Web URL, Platform and Access Token first',
+      title: '校验失败',
+      description: '请先填写仓库地址、平台和访问令牌',
       color: 'warning',
     })
     return
@@ -34,18 +34,18 @@ async function handleValidateToken() {
       accessToken: state.accessToken,
     })
     if (result.valid) {
-      message.success('Token is valid')
+      message.success('访问令牌有效')
     } else {
       toast.add({
-        title: 'Token invalid',
-        description: result.message || 'Token validation failed',
+        title: '访问令牌无效',
+        description: result.message || '访问令牌校验失败',
         color: 'error',
       })
     }
   } catch (error: any) {
     toast.add({
-      title: 'Validation failed',
-      description: error.message || 'Failed to validate token',
+      title: '校验失败',
+      description: error.message || '访问令牌校验失败',
       color: 'error',
     })
   } finally {
@@ -66,7 +66,7 @@ async function onSubmit(event: FormSubmitEvent<RepoCreateParams>) {
 
   try {
     const repo = await repoApi.create(event.data)
-    message.success('Repository created successfully')
+    message.success('仓库创建成功')
 
     if (submitMode.value === 'saveAndContinue') {
       state.name = ''
@@ -79,8 +79,8 @@ async function onSubmit(event: FormSubmitEvent<RepoCreateParams>) {
     }
   } catch (error: any) {
     toast.add({
-      title: 'Create failed',
-      description: error.message || 'Failed to create repository, please try again',
+      title: '创建失败',
+      description: error.message || '仓库创建失败，请重试',
       color: 'error',
     })
   } finally {
@@ -90,7 +90,7 @@ async function onSubmit(event: FormSubmitEvent<RepoCreateParams>) {
 </script>
 
 <template>
-  <UButton label="New Repository" icon="i-lucide-plus" color="primary" @click="open = true" />
+  <UButton label="新建仓库" icon="i-lucide-plus" color="primary" @click="open = true" />
   <USlideover
     v-model:open="open"
     :ui="{
@@ -101,7 +101,7 @@ async function onSubmit(event: FormSubmitEvent<RepoCreateParams>) {
     }"
   >
     <template #header>
-      <h2 class="text-base font-medium">Create Repository</h2>
+      <h2 class="text-base font-medium">创建仓库</h2>
       <UButton color="neutral" variant="ghost" icon="i-lucide-x" size="md" square @click="open = false" />
     </template>
 
@@ -114,25 +114,25 @@ async function onSubmit(event: FormSubmitEvent<RepoCreateParams>) {
         @submit="onSubmit"
         :validateOn="['input', 'change']"
       >
-        <UFormField label="Name" name="name" size="md" :ui="{ label: 'text-sm font-normal mb-1' }">
-          <UInput v-model="state.name" placeholder="Enter repository name" size="md" class="w-full" />
+        <UFormField label="名称" name="name" size="md" :ui="{ label: 'text-sm font-normal mb-1' }">
+          <UInput v-model="state.name" placeholder="请输入仓库名称" size="md" class="w-full" />
         </UFormField>
 
-        <UFormField label="Web URL" name="webUrl" :ui="{ label: 'text-sm font-normal mb-1' }">
+        <UFormField label="仓库地址" name="webUrl" :ui="{ label: 'text-sm font-normal mb-1' }">
           <UInput v-model="state.webUrl" placeholder="https://github.com/user/repo" class="w-full" />
         </UFormField>
 
-        <UFormField label="Platform" name="platform" :ui="{ label: 'text-sm font-normal mb-1' }">
-          <USelect v-model="state.platform" :items="PLATFORM_OPTIONS" placeholder="Select platform" />
+        <UFormField label="平台" name="platform" :ui="{ label: 'text-sm font-normal mb-1' }">
+          <USelect v-model="state.platform" :items="PLATFORM_OPTIONS" placeholder="请选择平台" />
         </UFormField>
 
-        <UFormField label="Access Token" name="accessToken" :ui="{ label: 'text-sm font-normal mb-1' }">
+        <UFormField label="访问令牌" name="accessToken" :ui="{ label: 'text-sm font-normal mb-1' }">
           <div class="flex gap-2">
             <div class="relative flex-1">
               <UInput
                 v-model="state.accessToken"
                 :type="showAccessToken ? 'text' : 'password'"
-                placeholder="Enter access token (optional)"
+                placeholder="请输入访问令牌（可选）"
                 size="md"
                 class="w-full"
               />
@@ -146,7 +146,7 @@ async function onSubmit(event: FormSubmitEvent<RepoCreateParams>) {
               />
             </div>
             <UButton
-              label="Validate"
+              label="校验"
               color="neutral"
               variant="outline"
               size="md"
@@ -159,16 +159,16 @@ async function onSubmit(event: FormSubmitEvent<RepoCreateParams>) {
     </template>
 
     <template #footer>
-      <UButton label="Cancel" color="neutral" variant="subtle" @click="open = false" />
+      <UButton label="取消" color="neutral" variant="subtle" @click="open = false" />
       <UButton
-        label="Save & Continue"
+        label="保存并继续"
         color="primary"
         variant="outline"
         :loading="loading"
         @click="submitMode = 'saveAndContinue'; formRef?.submit()"
       />
       <UButton
-        label="Confirm"
+        label="确认"
         color="success"
         variant="solid"
         :loading="loading"

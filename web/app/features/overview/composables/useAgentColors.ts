@@ -8,12 +8,12 @@ const AGENT_COLORS: Record<string, string> = {
   'Cursor': '#94a3b8',
   'Copilot': '#6ee7b7',
   'Codeium': '#fbbf24',
-  'Unknown': '#9ca3af',
+  '未知': '#9ca3af',
 }
 
 export function useAgentColors() {
   function getAgentColor(agent: string): string {
-    const name = agent || 'Unknown'
+    const name = agent || '未知'
     return (
       AGENT_COLORS[name] ??
       `hsl(${name.split('').reduce((a, c) => a + c.charCodeAt(0), 0) % 360}, 60%, 50%)`

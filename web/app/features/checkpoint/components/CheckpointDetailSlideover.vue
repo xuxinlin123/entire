@@ -116,7 +116,7 @@ const stepsLabel = (idx: number) => {
   const session = sessions.value[idx]
   if (!session) return ''
   if (parsedTranscript.value && idx === selectedSessionIndex.value) {
-    return `${parsedTranscript.value.stepsCount ?? 0} steps`
+    return `${parsedTranscript.value.stepsCount ?? 0} 步`
   }
   return ''
 }
@@ -134,7 +134,7 @@ const stepsLabel = (idx: number) => {
     <template #header>
       <div class="flex items-center gap-2 min-w-0">
         <h2 class="text-base font-medium truncate">
-          {{ checkpoint?.checkpointId ?? 'Checkpoint' }}
+          {{ checkpoint?.checkpointId ?? '检查点' }}
         </h2>
         <span v-if="checkpoint?.repoName" class="text-sm text-gray-500 truncate">
           {{ checkpoint.repoName }}
@@ -145,14 +145,14 @@ const stepsLabel = (idx: number) => {
 
     <template #body>
       <div v-if="!checkpoint" class="p-6 text-gray-500">
-        Select a checkpoint
+        请选择一个检查点
       </div>
 
       <div v-else class="flex flex-1 min-h-0">
         <!-- Left sidebar: Sessions + Files -->
         <div class="w-64 shrink-0 border-r border-gray-200 dark:border-gray-700 flex flex-col overflow-hidden">
           <div class="p-3 border-b border-gray-200 dark:border-gray-700">
-            <div class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Sessions</div>
+            <div class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">会话</div>
             <div v-if="sessionsLoading" class="flex justify-center py-4">
               <UIcon name="i-lucide-loader-2" class="w-5 h-5 animate-spin text-primary" />
             </div>
@@ -169,9 +169,9 @@ const stepsLabel = (idx: number) => {
                 ]"
                 @click="selectSession(i)"
               >
-                <div class="font-medium truncate">{{ s.promptPreview || `Session ${i}` }}</div>
+                <div class="font-medium truncate">{{ s.promptPreview || `会话 ${i + 1}` }}</div>
                 <div class="text-xs text-gray-500 mt-0.5">
-                  {{ stepsLabel(i) || 'OpenCode' }}
+                  {{ stepsLabel(i) || '暂无步骤' }}
                 </div>
               </button>
             </div>
@@ -179,9 +179,9 @@ const stepsLabel = (idx: number) => {
 
           <div class="flex-1 p-3 overflow-auto min-h-0">
             <div class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
-              Files {{ parsedTranscript?.fileChanges?.length ?? 0 }}
+              文件 {{ parsedTranscript?.fileChanges?.length ?? 0 }}
             </div>
-            <div v-if="transcriptLoading" class="text-sm text-gray-500">Loading...</div>
+            <div v-if="transcriptLoading" class="text-sm text-gray-500">加载中...</div>
             <div v-else-if="flatNodes.length" class="space-y-0">
               <component
                 v-for="{ node, depth } in flatNodes"
@@ -222,7 +222,7 @@ const stepsLabel = (idx: number) => {
               </component>
             </div>
             <div v-else-if="!transcriptLoading" class="text-sm text-gray-500">
-              No files
+              暂无文件
             </div>
           </div>
         </div>
@@ -245,7 +245,7 @@ const stepsLabel = (idx: number) => {
           </div>
 
           <div v-else class="flex-1 flex items-center justify-center p-8 text-gray-500">
-            No transcript
+            暂无转录内容
           </div>
         </div>
       </div>

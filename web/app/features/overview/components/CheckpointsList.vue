@@ -1,13 +1,13 @@
 <template>
   <UCard>
     <template #header>
-      <h3 class="text-lg font-semibold">Recent Checkpoints</h3>
+      <h3 class="text-lg font-semibold">最近检查点</h3>
     </template>
 
     <!-- Empty state -->
     <div v-if="isEmpty" class="text-center py-16 text-gray-500 dark:text-gray-400">
       <UIcon name="i-lucide-git-commit" class="w-12 h-12 mx-auto mb-4 opacity-50" />
-      <p>No checkpoints in this range</p>
+      <p>当前范围暂无检查点</p>
     </div>
 
     <!-- Table + Pagination -->
@@ -15,7 +15,7 @@
       <UTable :data="listData" :columns="columns" class="flex-1" />
 
       <div class="flex justify-between items-center pt-4 border-t border-gray-200 dark:border-gray-700">
-        <div class="text-sm text-default">Total {{ total }} items</div>
+        <div class="text-sm text-default">共 {{ total }} 条</div>
         <div class="flex items-center gap-3">
           <UPagination
             v-model:page="currentPage"
@@ -83,7 +83,7 @@ const currentSize = computed({
 const columns = [
   {
     accessorKey: 'commitMessage',
-    header: 'Commit Message',
+    header: '提交信息',
     cell: ({ row }: { row: Row<OverviewCheckpointListItem> }) => (
       <div class="max-w-[280px]" title={row.original.commitMessage}>
         <span class="truncate block text-default">{formatCommitMessage(row.original.commitMessage)}</span>
@@ -92,35 +92,35 @@ const columns = [
   },
   {
     accessorKey: 'commitAuthorName',
-    header: 'Author',
+    header: '作者',
     cell: ({ row }: { row: Row<OverviewCheckpointListItem> }) => (
       <div class="text-default">{row.original.commitAuthorName || '-'}</div>
     ),
   },
   {
     accessorKey: 'commitTime',
-    header: 'Commit Time',
+    header: '提交时间',
     cell: ({ row }: { row: Row<OverviewCheckpointListItem> }) => (
       <div class="whitespace-nowrap text-default">{formatCommitTime(row.original.commitTime)}</div>
     ),
   },
   {
     accessorKey: 'repoName',
-    header: 'Repository',
+    header: '仓库',
     cell: ({ row }: { row: Row<OverviewCheckpointListItem> }) => (
       <div class="text-default">{row.original.repoName || '-'}</div>
     ),
   },
   {
     accessorKey: 'branch',
-    header: 'Branch',
+    header: '分支',
     cell: ({ row }: { row: Row<OverviewCheckpointListItem> }) => (
       <div class="text-default">{row.original.branch || '-'}</div>
     ),
   },
   {
     accessorKey: 'agent',
-    header: 'Agent',
+    header: '智能体',
     cell: ({ row }: { row: Row<OverviewCheckpointListItem> }) =>
       row.original.agent ? (
         <UBadge
@@ -137,21 +137,21 @@ const columns = [
   },
   {
     accessorKey: 'filesTouched',
-    header: 'Files',
+    header: '文件',
     cell: ({ row }: { row: Row<OverviewCheckpointListItem> }) => (
       <div class="text-default">{row.original.filesTouched ?? '-'}</div>
     ),
   },
   {
     accessorKey: 'tokenUsage',
-    header: 'Tokens',
+    header: '令牌',
     cell: ({ row }: { row: Row<OverviewCheckpointListItem> }) => (
       <div class="text-default">{formatTokenCount(row.original.tokenUsage)}</div>
     ),
   },
   {
     accessorKey: 'additions',
-    header: 'Additions / Deletions',
+    header: '新增 / 删除',
     cell: ({ row }: { row: Row<OverviewCheckpointListItem> }) => (
       <div class="text-default">
         <span class="text-green-600 dark:text-green-500">+{row.original.additions ?? 0}</span>

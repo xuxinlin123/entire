@@ -30,30 +30,30 @@ const handleSubmit = async () => {
 <template>
   <UCard class="w-full max-w-md">
     <template #header>
-      <h2 class="text-2xl font-bold text-center">Login</h2>
+      <h2 class="text-2xl font-bold text-center">登录</h2>
     </template>
 
     <form @submit.prevent="handleSubmit" class="space-y-4">
-      <UFormGroup label="Username" required>
+      <UFormGroup label="用户名" required>
         <UInput
           v-model="form.username"
-          placeholder="Please enter username"
+          placeholder="请输入用户名"
           :disabled="loading"
         />
       </UFormGroup>
 
-      <UFormGroup label="Password" required>
+      <UFormGroup label="密码" required>
         <UInput
           v-model="form.password"
           type="password"
-          placeholder="Please enter password"
+          placeholder="请输入密码"
           :disabled="loading"
         />
       </UFormGroup>
 
       <UCheckbox
         v-model="form.remember"
-        label="Remember me"
+        label="记住我"
         :disabled="loading"
       />
 
@@ -62,7 +62,7 @@ const handleSubmit = async () => {
         block
         :loading="loading"
       >
-        Login
+        登录
       </UButton>
     </form>
   </UCard>

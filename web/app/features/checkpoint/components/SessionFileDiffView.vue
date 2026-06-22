@@ -162,7 +162,7 @@ const diffLines = computed(() => {
 
     <div v-else>
       <div class="text-xs text-gray-500 mb-3">
-        Per-message diffs are not available for this agent. Showing the tool calls that touched this file.
+        当前智能体没有提供逐消息差异，下面展示触碰此文件的工具调用。
       </div>
       <div v-if="fileView.fragments.length" class="space-y-2">
         <div
@@ -192,7 +192,7 @@ const diffLines = computed(() => {
         </div>
       </div>
       <div v-else class="text-sm text-gray-500">
-        No tool calls for this file were found in the transcript.
+        转录内容中没有找到触碰此文件的工具调用。
       </div>
     </div>
   </div>

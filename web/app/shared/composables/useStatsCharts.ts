@@ -43,7 +43,7 @@ export function useStatsCharts() {
         },
         formatter: (params: any) => {
           const item = params[0]
-          return `${item.name}<br/>Commits: ${item.value}`
+          return `${item.name}<br/>提交数：${item.value}`
         }
       },
       grid: {
@@ -91,7 +91,7 @@ export function useStatsCharts() {
       },
       series: [
         {
-          name: 'Commits',
+          name: '提交数',
           type: 'bar',
           data: commitCounts,
           itemStyle: {
@@ -133,7 +133,7 @@ export function useStatsCharts() {
         },
         formatter: (params: any) => {
           const item = params[0]
-          return `${item.name}<br/>Avg Score: ${Number(item.value).toFixed(2)}`
+          return `${item.name}<br/>平均分：${Number(item.value).toFixed(2)}`
         }
       },
       grid: {
@@ -183,7 +183,7 @@ export function useStatsCharts() {
       },
       series: [
         {
-          name: 'Avg Score',
+          name: '平均分',
           type: 'bar',
           data: scores,
           itemStyle: {
@@ -224,7 +224,7 @@ export function useStatsCharts() {
         },
         formatter: (params: any) => {
           const item = params[0]
-          return `${item.name}<br/>Commits: ${item.value}`
+          return `${item.name}<br/>提交数：${item.value}`
         }
       },
       grid: {
@@ -272,7 +272,7 @@ export function useStatsCharts() {
       },
       series: [
         {
-          name: 'Commits',
+          name: '提交数',
           type: 'bar',
           data: commitCounts,
           itemStyle: {
@@ -314,7 +314,7 @@ export function useStatsCharts() {
         },
         formatter: (params: any) => {
           const item = params[0]
-          return `${item.name}<br/>Avg Score: ${Number(item.value).toFixed(2)}`
+          return `${item.name}<br/>平均分：${Number(item.value).toFixed(2)}`
         }
       },
       grid: {
@@ -364,7 +364,7 @@ export function useStatsCharts() {
       },
       series: [
         {
-          name: 'Avg Score',
+          name: '平均分',
           type: 'bar',
           data: scores,
           itemStyle: {
@@ -409,7 +409,7 @@ export function useStatsCharts() {
           const addValue = params[0].value
           const delValue = Math.abs(params[1].value)
           const total = addValue + delValue
-          return `${name}<br/>Added: +${addValue}<br/>Deleted: -${delValue}<br/>Total: ${total}`
+          return `${name}<br/>新增：+${addValue}<br/>删除：-${delValue}<br/>总计：${total}`
         }
       },
       grid: {
@@ -458,7 +458,7 @@ export function useStatsCharts() {
       },
       series: [
         {
-          name: 'Added',
+          name: '新增',
           type: 'bar',
           barGap: '-100%', // Overlap bars at the same position
           data: additions,
@@ -473,7 +473,7 @@ export function useStatsCharts() {
           }
         },
         {
-          name: 'Deleted',
+          name: '删除',
           type: 'bar',
           data: deletions,
           itemStyle: {
@@ -518,7 +518,7 @@ export function useStatsCharts() {
           const addValue = params[0].value
           const delValue = Math.abs(params[1].value)
           const total = addValue + delValue
-          return `${name}<br/>Added: +${addValue}<br/>Deleted: -${delValue}<br/>Total: ${total}`
+          return `${name}<br/>新增：+${addValue}<br/>删除：-${delValue}<br/>总计：${total}`
         }
       },
       grid: {
@@ -567,7 +567,7 @@ export function useStatsCharts() {
       },
       series: [
         {
-          name: 'Added',
+          name: '新增',
           type: 'bar',
           barGap: '-100%', // Overlap bars at the same position
           data: additions,
@@ -582,7 +582,7 @@ export function useStatsCharts() {
           }
         },
         {
-          name: 'Deleted',
+          name: '删除',
           type: 'bar',
           data: deletions,
           itemStyle: {

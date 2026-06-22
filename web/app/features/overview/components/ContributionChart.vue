@@ -2,21 +2,21 @@
   <UCard>
     <template #header>
       <div class="flex items-center justify-between">
-        <h3 class="text-lg font-semibold">CONTRIBUTIONS</h3>
+        <h3 class="text-lg font-semibold">贡献分布</h3>
         <span v-if="checkpointCount !== null" class="text-sm text-gray-500 dark:text-gray-400">
-          {{ checkpointCount }} checkpoints
+          {{ checkpointCount }} 个检查点
         </span>
       </div>
     </template>
 
     <p v-if="chartDataTruncated" class="text-sm text-amber-600 dark:text-amber-500 mb-2">
-      Showing last 500 records only
+      仅显示最新 500 条记录
     </p>
 
     <!-- Empty state: no date range and no data -->
     <div v-if="isEmpty" class="text-center py-16 text-gray-500 dark:text-gray-400">
       <UIcon name="i-lucide-git-commit" class="w-12 h-12 mx-auto mb-4 opacity-50" />
-      <p>No checkpoints in this range</p>
+      <p>当前范围暂无检查点</p>
     </div>
 
     <!-- Chart: show when has date range (all dates on x-axis) or has data -->
@@ -116,7 +116,7 @@ const chartOption = computed<EChartsOption>(() => {
   const data = props.chartData ?? []
   const byAgent = new Map<string, { x: string; y: number; size: number; item: OverviewCheckpointChartItem }[]>()
   for (const item of data) {
-    const agent = item.agent ?? 'Unknown'
+    const agent = item.agent ?? '未知'
     if (!byAgent.has(agent)) byAgent.set(agent, [])
     byAgent.get(agent)!.push({
       x: toDateStr(item.commitTime),
@@ -152,8 +152,8 @@ const chartOption = computed<EChartsOption>(() => {
           (d) => toDateStr(d.commitTime) === p[0] && Math.abs(toHour(d.commitTime) - p[1]) < 0.01
         )
         const item = idx >= 0 ? data[idx] : null
-        if (!item) return `${params.seriesName}<br/>${p[0]} ${p[1].toFixed(1)}h`
-        return `${item.checkpointId}<br/>${item.agent ?? 'Unknown'} · +${item.additions ?? 0} / -${item.deletions ?? 0}`
+        if (!item) return `${params.seriesName}<br/>${p[0]} ${p[1].toFixed(1)} 时`
+        return `${item.checkpointId}<br/>${item.agent ?? '未知'}<br/>新增 +${item.additions ?? 0} / 删除 -${item.deletions ?? 0}`
       },
     },
     grid: { left: 60, right: 40, top: 20, bottom: 40 },

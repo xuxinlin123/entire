@@ -6,13 +6,13 @@ import * as v from 'valibot'
 
 export const loginSchema = v.object({
   username: v.pipe(
-    v.string('Username must be a string'),
-    v.minLength(3, 'Username must be at least 3 characters'),
-    v.maxLength(20, 'Username must be at most 20 characters'),
+    v.string('用户名必须是字符串'),
+    v.minLength(3, '用户名至少需要 3 个字符'),
+    v.maxLength(20, '用户名不能超过 20 个字符'),
   ),
   password: v.pipe(
-    v.string('Password must be a string'),
-    v.minLength(6, 'Password must be at least 6 characters'),
+    v.string('密码必须是字符串'),
+    v.minLength(6, '密码至少需要 6 个字符'),
   ),
   remember: v.optional(v.boolean()),
 })
