@@ -136,6 +136,57 @@ class TranscriptNormalizerTest {
             assertTrue(dto.getMessages().stream().anyMatch(m -> !m.getText().isEmpty()),
                     "expected at least one message with non-empty text");
         }
+
+        @Test
+        void hidesBootstrapMessagesAndDeduplicatesCodexEvents() throws Exception {
+            NormalizedTranscriptDTO dto = normalizer.normalize(loadFixture("codex.jsonl"));
+            assertEquals(1, dto.getStepsCount(), "only the real user prompt should count as a step");
+
+            String visibleText = dto.getMessages().stream()
+                    .map(m -> m.getText() == null ? "" : m.getText())
+                    .reduce("", (a, b) -> a + "\n" + b);
+            assertTrue(!visibleText.contains("<permissions instructions>"),
+                    "developer permission instructions must not be shown");
+            assertTrue(!visibleText.contains("<environment_context>"),
+                    "injected environment context must not be shown");
+
+            long userPromptCount = dto.getMessages().stream()
+                    .filter(m -> "user".equals(m.getRole()))
+                    .filter(m -> "create a hello.txt file with a greeting".equals(m.getText()))
+                    .count();
+            long firstAssistantCount = dto.getMessages().stream()
+                    .filter(m -> "assistant".equals(m.getRole()))
+                    .filter(m -> "Creating the file now.".equals(m.getText()))
+                    .count();
+            assertEquals(1, userPromptCount, "Codex response_item/event_msg user pair should be one UI message");
+            assertEquals(1, firstAssistantCount, "Codex response_item/event_msg assistant pair should be one UI message");
+        }
+
+        @Test
+        void extractsFilesTouchedByCodexShellCommands() {
+            String sample = String.join("\n",
+                    "{\"timestamp\":\"2026-04-01T00:00:00Z\",\"type\":\"session_meta\","
+                            + "\"payload\":{\"cwd\":\"D:\\\\repo\"}}",
+                    "{\"timestamp\":\"2026-04-01T00:00:01Z\",\"type\":\"response_item\","
+                            + "\"payload\":{\"type\":\"message\",\"role\":\"user\",\"content\":["
+                            + "{\"type\":\"input_text\",\"text\":\"create empty file\"}]}}",
+                    "{\"timestamp\":\"2026-04-01T00:00:02Z\",\"type\":\"response_item\","
+                            + "\"payload\":{\"type\":\"function_call\",\"name\":\"shell_command\","
+                            + "\"arguments\":\"{\\\"command\\\":\\\"New-Item -ItemType File -Name empty.txt\\\","
+                            + "\\\"workdir\\\":\\\"D:\\\\\\\\repo\\\"}\",\"call_id\":\"call_empty\"}}"
+            );
+
+            NormalizedTranscriptDTO dto = normalizer.normalize(sample);
+            assertEquals("codex-ndjson", dto.getMeta().getSourceFormat());
+            assertTrue(dto.getFileChanges().stream().anyMatch(f -> "empty.txt".equals(f.getFile())),
+                    "New-Item-created empty file should appear in fileChanges");
+            assertTrue(dto.getMessages().stream()
+                            .flatMap(m -> m.getTools() == null ? Stream.empty() : m.getTools().stream())
+                            .anyMatch(t -> t.getInput() != null
+                                    && t.getInput().has("touched_files")
+                                    && t.getInput().get("touched_files").toString().contains("empty.txt")),
+                    "shell command tool input should expose touched_files for the UI");
+        }
     }
 
     @Nested

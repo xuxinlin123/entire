@@ -45,15 +45,22 @@ function getInputString(input: unknown, key: string): string {
   return typeof v === 'string' ? v : ''
 }
 
-function getToolFilePath(t: ToolUse): string | null {
+function getToolFilePaths(t: ToolUse): string[] {
   const input = t.input
-  if (!input || typeof input !== 'object') return null
+  if (!input || typeof input !== 'object') return []
   const obj = input as Record<string, unknown>
+  const paths: string[] = []
   for (const k of FILE_PATH_KEYS) {
     const v = obj[k]
-    if (typeof v === 'string' && v.length > 0) return v
+    if (typeof v === 'string' && v.length > 0) paths.push(v)
   }
-  return null
+  const touched = obj.touched_files
+  if (Array.isArray(touched)) {
+    for (const v of touched) {
+      if (typeof v === 'string' && v.length > 0) paths.push(v)
+    }
+  }
+  return Array.from(new Set(paths))
 }
 
 // Prefix every line so multi-line old_string/new_string content renders as a real diff.
@@ -110,8 +117,8 @@ const fileView = computed<FileView>(() => {
   const fragments: FragmentView[] = []
   for (const m of messages) {
     for (const t of m.tools ?? []) {
-      const p = getToolFilePath(t)
-      if (p && matchesTreePath(p, props.file, props.parsed.projectRoot)) {
+      const paths = getToolFilePaths(t)
+      if (paths.some((p) => matchesTreePath(p, props.file, props.parsed.projectRoot))) {
         fragments.push({ tool: t, messageId: m.id, blocks: blocksFor(t) })
       }
     }
