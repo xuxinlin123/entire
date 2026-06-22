@@ -57,4 +57,12 @@ export const checkpointApi = {
       method: 'POST',
     })
   },
+
+  /** Sync checkpoints for all configured repos immediately */
+  async syncAll(fullScan = false): Promise<void> {
+    const params = fullScan ? '?fullScan=true' : ''
+    return $adminApi<void>(`/checkpoint/sync/all${params}`, {
+      method: 'POST',
+    })
+  },
 }

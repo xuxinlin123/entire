@@ -11,6 +11,8 @@
       <div class="space-y-6 overflow-y-auto h-full p-4">
         <!-- Date range selector -->
         <div class="flex items-center justify-end gap-2 flex-wrap">
+          <CheckpointSyncButton class="mr-auto" @synced="refreshDashboardData" />
+
           <!-- Quick options -->
           <UButton
             v-for="option in DATE_RANGE_OPTIONS"
@@ -162,6 +164,7 @@ import { useOverviewCheckpoints } from '~/features/overview/composables/useOverv
 import { DATE_RANGE_OPTIONS } from '~/features/overview/constants/overview.constants'
 import ContributionChart from '~/features/overview/components/ContributionChart.vue'
 import CheckpointsList from '~/features/overview/components/CheckpointsList.vue'
+import CheckpointSyncButton from '~/features/checkpoint/components/CheckpointSyncButton.vue'
 import StatsCard from '~/shared/components/StatsCard.vue'
 import { formatDate } from '~/shared/utils/date'
 import { formatTokenCount } from '~/shared/utils/format'
@@ -175,7 +178,7 @@ const {
   stats,
   pending,
   error,
-  refresh,
+  refresh: refreshStats,
   dateRangeType,
   customStartDate,
   customEndDate,
@@ -191,8 +194,14 @@ const {
   agentStats,
   pending: checkpointsPending,
   listPending: checkpointsListPending,
+  refresh: refreshCheckpoints,
   goToPage,
   goToSize,
   pageSizeOptions,
 } = useOverviewCheckpoints(queryParams)
+
+function refreshDashboardData() {
+  refreshStats()
+  refreshCheckpoints()
+}
 </script>

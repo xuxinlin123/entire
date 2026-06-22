@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import CheckpointSearchForm from '~/features/checkpoint/components/CheckpointSearchForm.vue'
 import CheckpointTable from '~/features/checkpoint/components/CheckpointTable.vue'
+import CheckpointSyncButton from '~/features/checkpoint/components/CheckpointSyncButton.vue'
 import { useCheckpointSearch } from '~/features/checkpoint/composables/useCheckpointSearch'
 
 definePageMeta({
@@ -21,6 +22,7 @@ const {
   commitAuthorOptions,
   loadingRepos,
   loadingAuthors,
+  refresh,
   onPageChange,
   resetFilters,
   pageSizeOptions,
@@ -38,18 +40,22 @@ const {
     </template>
     <template #body>
       <div class="space-y-4 mt-2">
-        <CheckpointSearchForm
-          v-model:start-date-str="startDateStr"
-          v-model:end-date-str="endDateStr"
-          v-model:repo-ids="repoIds"
-          v-model:commit-author-names="commitAuthorNames"
-          v-model:commit-message="commitMessage"
-          :repo-options="repoOptions"
-          :commit-author-options="commitAuthorOptions"
-          :loading-repos="loadingRepos"
-          :loading-authors="loadingAuthors"
-          @reset="resetFilters"
-        />
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <CheckpointSearchForm
+            v-model:start-date-str="startDateStr"
+            v-model:end-date-str="endDateStr"
+            v-model:repo-ids="repoIds"
+            v-model:commit-author-names="commitAuthorNames"
+            v-model:commit-message="commitMessage"
+            :repo-options="repoOptions"
+            :commit-author-options="commitAuthorOptions"
+            :loading-repos="loadingRepos"
+            :loading-authors="loadingAuthors"
+            class="min-w-0 flex-1"
+            @reset="resetFilters"
+          />
+          <CheckpointSyncButton class="shrink-0" @synced="refresh" />
+        </div>
         <div v-if="isLoading" class="flex justify-center py-12">
           <UIcon name="i-lucide-loader-2" class="w-8 h-8 animate-spin text-primary" />
         </div>
