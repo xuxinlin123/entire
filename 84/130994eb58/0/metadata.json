@@ -1,0 +1,58 @@
+{
+  "cli_version": "0.7.7",
+  "checkpoint_id": "84130994eb58",
+  "session_id": "019eefc9-8902-7741-8fb1-33427e323ce8",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-22T14:46:23.9821116Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "save_step_count": 1,
+  "files_touched": [
+    ".gitignore"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "ff9e7f54866a",
+  "token_usage": {
+    "input_tokens": 8486,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 2432,
+    "output_tokens": 5,
+    "api_call_count": 1
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-22T14:46:23.9628739Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 42,
+    "human_removed": 40,
+    "total_committed": 0,
+    "total_lines_changed": 82,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 369,
+      "user_lines_removed": 288,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".codex/agents/entire-search.toml": 23,
+        ".codex/config.toml": 3,
+        ".codex/hooks.json": 52,
+        ".gitignore": 43,
+        "server/gradlew": 248
+      },
+      "user_removed_per_file": {
+        ".gitignore": 40,
+        "server/gradlew": 248
+      }
+    }
+  ]
+}
