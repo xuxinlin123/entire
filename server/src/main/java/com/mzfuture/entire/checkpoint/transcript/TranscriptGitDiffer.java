@@ -90,9 +90,10 @@ public class TranscriptGitDiffer {
         for (TranscriptMessageViewDTO m : messages) {
             if (m.getTools() == null) continue;
             for (TranscriptToolUseDTO t : m.getTools()) {
-                String raw = FilePathExtractor.extract(t.getInput());
-                if (raw != null && rawPathMatchesTree(raw, treePath, projectRoot)) {
-                    return toGitRelative(raw, projectRoot, treePath);
+                for (String raw : FilePathExtractor.extractAll(t.getInput())) {
+                    if (rawPathMatchesTree(raw, treePath, projectRoot)) {
+                        return toGitRelative(raw, projectRoot, treePath);
+                    }
                 }
             }
         }
@@ -141,10 +142,11 @@ public class TranscriptGitDiffer {
             TranscriptMessageViewDTO m = messages.get(i);
             if (m.getTools() == null) continue;
             for (TranscriptToolUseDTO t : m.getTools()) {
-                String raw = FilePathExtractor.extract(t.getInput());
-                if (raw != null && rawPathMatchesTree(raw, treePath, projectRoot)) {
-                    byIndex.put(i, m);
-                    break;
+                for (String raw : FilePathExtractor.extractAll(t.getInput())) {
+                    if (rawPathMatchesTree(raw, treePath, projectRoot)) {
+                        byIndex.put(i, m);
+                        break;
+                    }
                 }
             }
         }

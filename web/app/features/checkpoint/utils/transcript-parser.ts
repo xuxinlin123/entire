@@ -7,6 +7,7 @@ export interface FileDiff {
   file: string
   before: string
   after: string
+  unifiedDiff?: string
   additions: number
   deletions: number
 }

@@ -11,6 +11,7 @@ public class TranscriptFileDiffDTO {
     private String file;
     private String before;
     private String after;
+    private String unifiedDiff;
 
     @Schema(description = "Line additions count")
     private Integer additions;

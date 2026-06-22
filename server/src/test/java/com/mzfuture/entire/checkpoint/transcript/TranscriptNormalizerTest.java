@@ -23,6 +23,14 @@ class TranscriptNormalizerTest {
         return Files.readString(Path.of("src/test/resources/transcript-fixtures", name));
     }
 
+    String jsonString(String value) {
+        return value
+                .replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\r", "\\r")
+                .replace("\n", "\\n");
+    }
+
     void assertShape(NormalizedTranscriptDTO dto, String expectedFormat) {
         assertNotNull(dto);
         assertNotNull(dto.getMeta(), "meta is null");
@@ -186,6 +194,61 @@ class TranscriptNormalizerTest {
                                     && t.getInput().has("touched_files")
                                     && t.getInput().get("touched_files").toString().contains("empty.txt")),
                     "shell command tool input should expose touched_files for the UI");
+        }
+
+        @Test
+        void extractsFilesAndUnifiedDiffFromCodexApplyPatchEvents() {
+            String patch = """
+                    *** Begin Patch
+                    *** Update File: D:\\project\\course\\entire-dashboard\\README.md
+                    @@
+                    -old
+                    +new
+                    *** End Patch
+                    """;
+            String unifiedDiff = "@@ -64,3 +64,3 @@\n"
+                    + " \n"
+                    + "-old\n"
+                    + "+new\n"
+                    + " \n";
+            String file = "D:\\project\\course\\entire-dashboard\\README.md";
+            String sample = String.join("\n",
+                    "{\"timestamp\":\"2026-04-01T00:00:00Z\",\"type\":\"session_meta\","
+                            + "\"payload\":{\"cwd\":\"D:\\\\project\\\\course\\\\entire-dashboard\"}}",
+                    "{\"timestamp\":\"2026-04-01T00:00:01Z\",\"type\":\"response_item\","
+                            + "\"payload\":{\"type\":\"message\",\"role\":\"user\",\"content\":["
+                            + "{\"type\":\"input_text\",\"text\":\"edit README\"}]}}",
+                    "{\"timestamp\":\"2026-04-01T00:00:02Z\",\"type\":\"response_item\","
+                            + "\"payload\":{\"type\":\"message\",\"role\":\"assistant\",\"content\":["
+                            + "{\"type\":\"output_text\",\"text\":\"editing\"}]}}",
+                    "{\"timestamp\":\"2026-04-01T00:00:03Z\",\"type\":\"response_item\","
+                            + "\"payload\":{\"type\":\"custom_tool_call\",\"name\":\"apply_patch\","
+                            + "\"input\":\"" + jsonString(patch) + "\",\"call_id\":\"call_patch\"}}",
+                    "{\"timestamp\":\"2026-04-01T00:00:04Z\",\"type\":\"event_msg\","
+                            + "\"payload\":{\"type\":\"patch_apply_end\",\"call_id\":\"call_patch\","
+                            + "\"changes\":{\"" + jsonString(file) + "\":{\"type\":\"update\","
+                            + "\"unified_diff\":\"" + jsonString(unifiedDiff) + "\",\"move_path\":null}},"
+                            + "\"status\":\"completed\"}}"
+            );
+
+            NormalizedTranscriptDTO dto = normalizer.normalize(sample);
+            assertEquals("codex-ndjson", dto.getMeta().getSourceFormat());
+            assertTrue(dto.getFileChanges().stream().anyMatch(f -> "README.md".equals(f.getFile())
+                            && f.getAdditions() == 1 && f.getDeletions() == 1),
+                    "apply_patch-updated README.md should appear in fileChanges with diff stats");
+            assertTrue(dto.getMessages().stream()
+                            .flatMap(m -> m.getDiffs() == null ? Stream.empty() : m.getDiffs().stream())
+                            .anyMatch(d -> "README.md".equals(d.getFile())
+                                    && d.getUnifiedDiff() != null
+                                    && d.getUnifiedDiff().contains("-old")
+                                    && d.getUnifiedDiff().contains("+new")),
+                    "patch_apply_end unified diff should be attached to the tool message");
+            assertTrue(dto.getMessages().stream()
+                            .flatMap(m -> m.getTools() == null ? Stream.empty() : m.getTools().stream())
+                            .anyMatch(t -> t.getInput() != null
+                                    && t.getInput().has("touched_files")
+                                    && t.getInput().get("touched_files").toString().contains("README.md")),
+                    "apply_patch tool input should expose touched_files for the UI");
         }
     }
 

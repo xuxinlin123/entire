@@ -130,7 +130,9 @@ const fileView = computed<FileView>(() => {
 const diffLines = computed(() => {
   const d = fileView.value.diff
   if (!d) return []
-  return createUnifiedDiff(props.file, d.before ?? '', d.after ?? '')
+  const unified = d.unifiedDiff?.trim()
+  const text = unified || createUnifiedDiff(props.file, d.before ?? '', d.after ?? '')
+  return text
     .split(/\r?\n/)
     .map((line) => ({
       type:
