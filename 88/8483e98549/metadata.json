@@ -3,14 +3,28 @@
   "checkpoint_id": "888483e98549",
   "strategy": "manual-commit",
   "branch": "main",
-  "checkpoints_count": 2,
+  "checkpoints_count": 3,
   "files_touched": [
+    "README.md",
     "server/backend.local.out.log"
   ],
   "sessions": [
     {
       "metadata": "/88/8483e98549/0/metadata.json",
       "prompt": ""
+    },
+    {
+      "metadata": "/88/8483e98549/1/metadata.json",
+      "transcript": "/88/8483e98549/1/full.jsonl",
+      "content_hash": "/88/8483e98549/1/content_hash.txt",
+      "prompt": "/88/8483e98549/1/prompt.txt"
     }
-  ]
+  ],
+  "token_usage": {
+    "input_tokens": 22741,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 84224,
+    "output_tokens": 2595,
+    "api_call_count": 6
+  }
 }

@@ -1,0 +1,56 @@
+{
+  "cli_version": "0.7.7",
+  "checkpoint_id": "888483e98549",
+  "session_id": "019ef30f-f11f-7c62-aa63-71831bd5df2d",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-23T06:04:14.247544Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "save_step_count": 1,
+  "files_touched": [
+    "README.md",
+    "server/backend.local.out.log"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "134913d20def",
+  "token_usage": {
+    "input_tokens": 22741,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 84224,
+    "output_tokens": 2595,
+    "api_call_count": 6
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-23T06:04:14.1763194Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 1831,
+    "human_removed": 1129,
+    "total_committed": 172,
+    "total_lines_changed": 2960,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 1910,
+      "user_lines_removed": 1377,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        "server/backend.local.out.log": 1662,
+        "server/gradlew": 248
+      },
+      "user_removed_per_file": {
+        "server/backend.local.out.log": 1129,
+        "server/gradlew": 248
+      }
+    }
+  ]
+}
