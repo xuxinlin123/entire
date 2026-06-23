@@ -15,6 +15,9 @@ It provides a self-hosted dashboard that helps teams explore and analyze **AI-as
 它可以帮助团队更清晰地理解 AI 编程过程中的关键行为。
 你可以通过仪表盘查看仓库、会话、提交与检查点之间的关系。
 该项目适合用于团队审计、效率分析和 AI 辅助开发流程优化。
+它支持把 AI 会话、提交记录和检查点数据集中展示。
+团队可以用它追踪 AI 工具在开发过程中的实际影响。
+这些信息有助于复盘需求实现过程并改进协作方式。
 
 ### Background
 
